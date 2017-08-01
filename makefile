@@ -1,25 +1,19 @@
-current:
-	echo make pd_linux
+# Makefile to build class 'helloworld' for Pure Data.
+# Needs Makefile.pdlibbuilder as helper makefile for platform-dependent build
+# settings and rules.
 
-clean: ; rm -f *.pd_linux *.o
+# library name
+lib.name = gphoto
 
-# ----------------------- LINUX i386 -----------------------
+# input source file (class name == source file basename)
+class.sources = gphoto.c
 
-pd_linux: gphoto.pd_linux
+# all extra files to be included in binary distribution of the library
+datafiles = gphoto-help.pd README.txt LICENSE.txt
 
-.SUFFIXES: .pd_linux
+# include Makefile.pdlibbuilder from submodule directory 'pd-lib-builder'
+PDLIBBUILDER_DIR=pd-lib-builder/
+include $(PDLIBBUILDER_DIR)/Makefile.pdlibbuilder
 
-LINUXCFLAGS = -DPD -O2 -funroll-loops -fomit-frame-pointer \
-    -Wall -W -Wshadow -Wstrict-prototypes \
-    -Wno-unused -Wno-parentheses -Wno-switch \
-    -lgphoto2 -lpthread
-
-LINUXINCLUDE =  -I../../src
-
-.c.pd_linux:
-	cc $(LINUXCFLAGS) $(LINUXINCLUDE) -o $*.o -c $*.c -ggdb
-	ld -shared -o $*.pd_linux $*.o -lc -lm -lgphoto2
-	strip --strip-unneeded $*.pd_linux
-	rm $*.o
-
-
+# must do (why this doesn”t work with stock pd and pd-lib-builder?)
+# make PDINCLUDEDIR=Applications/Pd.app/Contents/Resources/include/
