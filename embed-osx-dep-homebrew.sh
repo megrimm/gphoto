@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script finds all of the dependecies from Fink and included them
+# This script finds all of the dependecies from Homebrew and included them
 # into current folder so that it becomes a libdir to be installed into
 # ~/Library/Pd or /Library/Pd <hans@eds.org>
 
