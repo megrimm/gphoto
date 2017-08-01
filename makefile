@@ -8,6 +8,12 @@ lib.name = gphoto
 # input source file (class name == source file basename)
 class.sources = gphoto.c
 
+# build for 64 bit only
+arch := x86_64
+
+# link to libgphoto2
+ldlibs = -lgphoto2
+
 # all extra files to be included in binary distribution of the library
 datafiles = gphoto-help.pd README.txt LICENSE.txt
 
